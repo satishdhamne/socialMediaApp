@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>User Profile</h1>
+
+    <form id="updateProfileForm">
+        <div>
+            <label for="bio">Bio</label>
+            <textarea id="bio" name="bio" rows="4" cols="50"><%= user.bio %></textarea>
+        </div>
+        <div>
+            <label for="profilePicture">Profile Picture URL</label>
+            <input type="text" id="profilePicture" name="profilePicture" value="<%= user.profilePicture %>" />
+        </div>
+        <button type="submit">Update Profile</button>
+    </form>
+
+    <h2>Profile Info</h2>
+    <p>Username: <%= user.username %></p>
+    <p>Email: <%= user.email %></p>
+    <p>Followers: <%= user.followers %></p>
+    <p>Following: <%= user.following %></p>
+    <p>Bio: <%= user.bio %></p>
+    <p>Profile Picture: <img src="<%= user.profilePicture %>" alt="Profile Picture" /></p>
+
+    <script>
+        document.getElementById('updateProfileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const bio = document.getElementById('bio').value;
+            const profilePicture = document.getElementById('profilePicture').value;
+
+            const response = await fetch('/userRoutes/profile', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({ bio, profilePicture })
+            });
+
+            const result = await response.json();
+            alert(result.message);
+        });
+    </script>
+</body>
+</html>
+
+
