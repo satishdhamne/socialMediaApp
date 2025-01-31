@@ -21,7 +21,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/sma")
+mongoose.connect("mongodb+srv://satishdhamne13012:I6864lO6Q1cSIFMC@cluster0.dkf1i.mongodb.net/")
   .then(() => {
     console.log("Connected to MongoDB successfully");
   })
